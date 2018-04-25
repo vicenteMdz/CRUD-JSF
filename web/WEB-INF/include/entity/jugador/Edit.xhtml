@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="JugadorEditDlg" widgetVar="JugadorEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditJugadorTitle}" closeOnEscape="true">
+
+            <h:form id="JugadorEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{jugadorController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditJugadorLabel_idJugador}" for="idJugador" />
+                        <h:outputText id="idJugador" value="#{jugadorController.selected.idJugador}" />
+
+                        <p:outputLabel value="#{myBundle.EditJugadorLabel_nombreJugador}" for="nombreJugador" />
+                        <p:inputText id="nombreJugador" value="#{jugadorController.selected.nombreJugador}" title="#{myBundle.EditJugadorTitle_nombreJugador}" required="true" requiredMessage="#{myBundle.EditJugadorRequiredMessage_nombreJugador}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{jugadorController.save}" value="#{myBundle.Save}" update="display,:JugadorListForm:datalist,:JugadorListForm:JugadorDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('JugadorEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('JugadorEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

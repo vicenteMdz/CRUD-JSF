@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Lista de jugadores</title>
+    </h:head>
+
+    <h:body>
+        <h:form id="idForm">
+            <p:growl id="msgs" showDetail="true"></p:growl>
+            <p:dataTable 
+                id="idTabla" 
+                var="registro" 
+                value="#{jugadorController.listaRegistro}"
+                scrollable="true"
+                selectionMode="single"
+                editable="true"
+                selection="#{jugadorController.selectedJugador}"
+                rowKey="#{registro.idJugador}"
+                emptyMessage="No hay jugadores dados de alta en la base de datos">
+                <f:facet name="header">Lista de Jugadores</f:facet>
+                <p:ajax event="rowSelect" listener="#{jugadorController.onRowSelect}" update=":idForm:msgs"></p:ajax>
+                <p:ajax event="rowEdit" listener="#{jugadorController.onRowEdit}" update=":idForm:msgs"></p:ajax>
+                <p:ajax event="rowEditCancel" listener="#{jugadorController.onRowCancel}" update=":idForm:msgs"></p:ajax>
+                <p:column>
+                    <f:facet name="header">Id. Jugador</f:facet>
+                    #{registro.idJugador}
+                </p:column>
+                <p:column headerText="Nombre">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{registro.nombreJugador}"></h:outputText>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{registro.nombreJugador}"></p:inputText>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Primer Apellido">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{registro.primerApellido}"></h:outputText>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{registro.primerApellido}"></p:inputText>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Segundo Apellido">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{registro.segundoApellido}"></h:outputText>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{registro.segundoApellido}"></p:inputText>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="NickName">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{registro.nickName}"></h:outputText>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{registro.nickName}"></p:inputText>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Número">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{registro.numero}"></h:outputText>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{registro.numero}"></p:inputText>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Posicion">
+                    <p:cellEditor>
+                        <f:facet name="output">
+                            <h:outputText value="#{registro.posicion}"></h:outputText>
+                        </f:facet>
+                        <f:facet name="input">
+                            <p:inputText value="#{registro.posicion}"></p:inputText>
+                        </f:facet>
+                    </p:cellEditor>
+                </p:column>
+                <p:column headerText="Editar">
+                    <p:rowEditor/>
+                </p:column>                
+                <p:column headerText="Eliminar">
+                    <p:commandButton value="Eliminar" 
+                                     icon="ui-icon-trash"
+                                     actionListener="#{jugadorController.deleteJugador(registro)}"
+                                     update=":idForm:idTabla"
+                                     ajax="true">
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:outputPanel id="outputPanel">
+            <!--<ui:include src="AltaJugador.xhtml" />-->
+        </p:outputPanel>
+    </h:body>
+
+</html>
