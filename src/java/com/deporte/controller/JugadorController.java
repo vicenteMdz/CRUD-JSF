@@ -64,13 +64,13 @@ public class JugadorController implements Serializable{
     }
     
     //método para crear el registro
-    public String saveJugador(Jugador jugador){
+    public void saveJugador(Jugador jugador){
         try {   
             jugadorService.saveJugador(jugador);
             this.jugador = new Jugador();
-            return "PlantillaCliente.xhtml";
+            iniciliazarListaJugador();
         } catch (Exception e) {
-            return "AltaJugador.xhtml";
+            e.printStackTrace();
         }
     }
     
@@ -87,6 +87,7 @@ public class JugadorController implements Serializable{
      //método para crear el registro
     public void deleteJugador(Jugador jugador){
         jugadorService.deleteJugador(jugador);
+        iniciliazarListaJugador();
     }
     
     public void onRowSelect(SelectEvent event){

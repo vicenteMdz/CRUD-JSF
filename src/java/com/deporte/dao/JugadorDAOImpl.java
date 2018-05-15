@@ -73,7 +73,7 @@ public class JugadorDAOImpl implements JugadorDAO{
             session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             session.delete(jugador);
-            //session.createQuery("DELETE FROM jugador where idJugador = " + idJugador).executeUpdate();
+            session.createQuery("DELETE FROM Jugador where idJugador = " + jugador.getIdJugador()).executeUpdate();
             session.getTransaction().commit();
             session.close();
         } catch (Exception e) {
